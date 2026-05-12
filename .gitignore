@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+._*
+
+# Claude Code локальные настройки
+.claude/
+
+# Артефакты компиляции tsr.com
+КР/tsr.com
+КР/tsr.obj
+КР/tsr.lst
+КР/tsr.map
+
+# Сборочные артефакты документации
+КР/Воробьев_КР_СП_*.zip
+КР/*.pdf.bak
+КР/~$*
+
+# Временные превью SVG
+КР/листы/*_preview.png
+
+# Редакторы
+*.swp
+*~
+.idea/
+.vscode/

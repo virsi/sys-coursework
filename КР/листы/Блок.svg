@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Лист А1: Блок-схемы алгоритмов программы
+  Размер: 841 × 594 мм (альбомная)
+  Воробьев Е. А., ИУ5-42Б, вариант №5
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="841mm" height="594mm" viewBox="0 0 841 594"
+     font-family="Times New Roman, serif" font-size="3">
+
+  <style>
+    .frame-out { fill: none; stroke: black; stroke-width: 1.0; }
+    .stamp-line { stroke: black; stroke-width: 0.5; fill: none; }
+    .stamp-line-thick { stroke: black; stroke-width: 1.0; fill: none; }
+    .label { font-size: 2.5; }
+    .title { font-size: 6; font-weight: bold; text-anchor: middle; }
+    .panel-title { font-size: 4.5; font-weight: bold; text-anchor: middle; }
+    /* Блоки */
+    .term { fill: #f0f8ff; stroke: black; stroke-width: 0.6; }
+    .proc { fill: white; stroke: black; stroke-width: 0.6; }
+    .cond { fill: #fffaf0; stroke: black; stroke-width: 0.6; }
+    .io   { fill: #f5fff5; stroke: black; stroke-width: 0.6; }
+    .blk-text { font-size: 2.6; text-anchor: middle; dominant-baseline: middle; }
+    .arrow { stroke: black; stroke-width: 0.5; fill: none; }
+    .arrow-label { font-size: 2.6; }
+  </style>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="black"/>
+    </marker>
+  </defs>
+
+  <!-- Внешняя рамка -->
+  <rect class="frame-out" x="0" y="0" width="841" height="594"/>
+  <rect class="frame-out" x="20" y="5" width="816" height="584"/>
+
+  <!-- ─── Заголовок ─── -->
+  <text class="title" x="420" y="22">БЛОК-СХЕМЫ АЛГОРИТМОВ ПРОГРАММЫ</text>
+  <line x1="280" y1="26" x2="560" y2="26" stroke="black" stroke-width="0.5"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- АЛГОРИТМ 1: _initTSR (верхний левый квадрант)               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <text class="panel-title" x="200" y="40">Алгоритм 1. Точка входа _initTSR</text>
+  <line x1="100" y1="42" x2="300" y2="42" stroke="black" stroke-width="0.4"/>
+
+  <!-- НАЧАЛО -->
+  <ellipse class="term" cx="200" cy="55" rx="18" ry="5"/>
+  <text class="blk-text" x="200" y="55">НАЧАЛО</text>
+  <path class="arrow" d="M 200 60 L 200 67" marker-end="url(#arrow)"/>
+
+  <!-- Очистить экран -->
+  <rect class="proc" x="170" y="68" width="60" height="10"/>
+  <text class="blk-text" x="200" y="73">Очистить экран</text>
+  <text class="blk-text" x="200" y="76">INT 10h, AH=0</text>
+  <path class="arrow" d="M 200 78 L 200 85" marker-end="url(#arrow)"/>
+
+  <!-- commandParamsParser -->
+  <rect class="proc" x="170" y="86" width="60" height="10"/>
+  <text class="blk-text" x="200" y="91">call commandParamsParser</text>
+  <text class="blk-text" x="200" y="94">(разбор /?)</text>
+  <path class="arrow" d="M 200 96 L 200 105" marker-end="url(#arrow)"/>
+
+  <!-- Условие: /? найден -->
+  <polygon class="cond" points="200,105 230,118 200,131 170,118"/>
+  <text class="blk-text" x="200" y="116">ключ /?</text>
+  <text class="blk-text" x="200" y="121">найден?</text>
+  <text class="arrow-label" x="232" y="118">Да</text>
+  <text class="arrow-label" x="165" y="118">Нет</text>
+
+  <!-- Нет → INT 2Fh проверка -->
+  <path class="arrow" d="M 200 131 L 200 138" marker-end="url(#arrow)"/>
+  <rect class="proc" x="170" y="139" width="60" height="10"/>
+  <text class="blk-text" x="200" y="144">INT 2Fh,</text>
+  <text class="blk-text" x="200" y="147">AH=FFh, AL=0</text>
+  <path class="arrow" d="M 200 149 L 200 158" marker-end="url(#arrow)"/>
+
+  <!-- AH = 'i' -->
+  <polygon class="cond" points="200,158 230,171 200,184 170,171"/>
+  <text class="blk-text" x="200" y="169">резидент</text>
+  <text class="blk-text" x="200" y="174">загружен?</text>
+  <text class="arrow-label" x="232" y="171">Да</text>
+  <text class="arrow-label" x="165" y="171">Нет</text>
+
+  <!-- Да → выгрузка -->
+  <path class="arrow" d="M 230 171 L 280 171 L 280 200" marker-end="url(#arrow)"/>
+  <rect class="proc" x="250" y="200" width="60" height="10"/>
+  <text class="blk-text" x="280" y="205">INT 2Fh,</text>
+  <text class="blk-text" x="280" y="208">AH=FFh, AL=1</text>
+  <text class="blk-text" x="280" y="218">(выгрузка)</text>
+
+  <!-- Нет → загрузка -->
+  <path class="arrow" d="M 200 184 L 200 191" marker-end="url(#arrow)"/>
+  <rect class="proc" x="170" y="192" width="60" height="10"/>
+  <text class="blk-text" x="200" y="197">Сохранить старые</text>
+  <text class="blk-text" x="200" y="200">обработчики</text>
+  <path class="arrow" d="M 200 202 L 200 209" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="170" y="210" width="60" height="10"/>
+  <text class="blk-text" x="200" y="215">Установить new_int9h,</text>
+  <text class="blk-text" x="200" y="218">new_int1Ch, new_int2Fh</text>
+  <path class="arrow" d="M 200 220 L 200 227" marker-end="url(#arrow)"/>
+
+  <rect class="io" x="170" y="228" width="60" height="9"/>
+  <text class="blk-text" x="200" y="234">Вывод «Резидент загружен!»</text>
+  <path class="arrow" d="M 200 237 L 200 244" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="170" y="245" width="60" height="9"/>
+  <text class="blk-text" x="200" y="251">INT 27h (TSR-exit)</text>
+  <path class="arrow" d="M 200 254 L 200 261" marker-end="url(#arrow)"/>
+
+  <!-- Ветка Да /?: вывод справки -->
+  <path class="arrow" d="M 230 118 L 320 118 L 320 230" marker-end="url(#arrow)"/>
+  <rect class="io" x="290" y="230" width="60" height="10"/>
+  <text class="blk-text" x="320" y="236">Вывод helpMsg (справка)</text>
+  <path class="arrow" d="M 320 240 L 320 250" marker-end="url(#arrow)"/>
+
+  <!-- КОНЕЦ -->
+  <ellipse class="term" cx="200" cy="265" rx="18" ry="5"/>
+  <text class="blk-text" x="200" y="265">КОНЕЦ</text>
+
+  <!-- Стрелки от веток к концу -->
+  <path class="arrow" d="M 280 215 L 280 270 L 218 270" marker-end="url(#arrow)"/>
+  <path class="arrow" d="M 320 255 L 320 270 L 218 270" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- АЛГОРИТМ 2: new_int9h (верхний правый квадрант)             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <text class="panel-title" x="600" y="40">Алгоритм 2. Обработчик клавиатуры new_int9h</text>
+  <line x1="450" y1="42" x2="750" y2="42" stroke="black" stroke-width="0.4"/>
+
+  <!-- ВХОД -->
+  <ellipse class="term" cx="600" cy="55" rx="18" ry="5"/>
+  <text class="blk-text" x="600" y="55">ВХОД INT 09h</text>
+  <path class="arrow" d="M 600 60 L 600 67" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="570" y="68" width="60" height="10"/>
+  <text class="blk-text" x="600" y="73">Сохранить регистры</text>
+  <text class="blk-text" x="600" y="76">push AX, BX, CX, DX, SI</text>
+  <path class="arrow" d="M 600 78 L 600 85" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="570" y="86" width="60" height="10"/>
+  <text class="blk-text" x="600" y="91">in AL, 60h</text>
+  <text class="blk-text" x="600" y="94">sub AL, 58</text>
+  <path class="arrow" d="M 600 96 L 600 103" marker-end="url(#arrow)"/>
+
+  <!-- Условие F8 -->
+  <polygon class="cond" points="600,103 630,116 600,129 570,116"/>
+  <text class="blk-text" x="600" y="116">AL=8 (F8)?</text>
+  <text class="arrow-label" x="632" y="116">Да</text>
+  <text class="arrow-label" x="565" y="116">Нет</text>
+  <path class="arrow" d="M 630 116 L 660 116 L 660 122" marker-end="url(#arrow)"/>
+  <rect class="proc" x="640" y="123" width="40" height="9"/>
+  <text class="blk-text" x="660" y="128">NOT signature-</text>
+  <text class="blk-text" x="660" y="131">Printing</text>
+  <path class="arrow" d="M 660 132 L 660 145" marker-end="url(#arrow)"/>
+
+  <!-- Условие F9 -->
+  <path class="arrow" d="M 600 129 L 600 135" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,135 630,148 600,161 570,148"/>
+  <text class="blk-text" x="600" y="148">AL=9 (F9)?</text>
+  <text class="arrow-label" x="632" y="148">Да</text>
+  <text class="arrow-label" x="565" y="148">Нет</text>
+  <path class="arrow" d="M 630 148 L 660 148 L 660 155" marker-end="url(#arrow)"/>
+  <rect class="proc" x="640" y="156" width="40" height="13"/>
+  <text class="blk-text" x="660" y="161">NOT cursive +</text>
+  <text class="blk-text" x="660" y="165">call setCursive</text>
+
+  <!-- Условие F1 -->
+  <path class="arrow" d="M 600 161 L 600 167" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,167 630,180 600,193 570,180"/>
+  <text class="blk-text" x="600" y="180">AL=1 (F1)?</text>
+  <text class="arrow-label" x="632" y="180">Да</text>
+  <text class="arrow-label" x="565" y="180">Нет</text>
+  <path class="arrow" d="M 630 180 L 660 180 L 660 188" marker-end="url(#arrow)"/>
+  <rect class="proc" x="640" y="189" width="40" height="9"/>
+  <text class="blk-text" x="660" y="194">NOT translate-</text>
+  <text class="blk-text" x="660" y="197">Enabled</text>
+
+  <!-- Условие F2 -->
+  <path class="arrow" d="M 600 193 L 600 199" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,199 630,212 600,225 570,212"/>
+  <text class="blk-text" x="600" y="212">AL=2 (F2)?</text>
+  <text class="arrow-label" x="632" y="212">Да</text>
+  <text class="arrow-label" x="565" y="212">Нет</text>
+  <path class="arrow" d="M 630 212 L 660 212 L 660 218" marker-end="url(#arrow)"/>
+  <rect class="proc" x="640" y="219" width="40" height="9"/>
+  <text class="blk-text" x="660" y="224">NOT ignore-</text>
+  <text class="blk-text" x="660" y="227">Enabled</text>
+
+  <!-- Объединение и вызов старого обработчика -->
+  <path class="arrow" d="M 600 225 L 600 235" marker-end="url(#arrow)"/>
+  <path class="arrow" d="M 660 228 L 660 235 L 600 235"/>
+  <rect class="proc" x="570" y="236" width="60" height="10"/>
+  <text class="blk-text" x="600" y="241">pushf;</text>
+  <text class="blk-text" x="600" y="244">call old_int9h</text>
+  <path class="arrow" d="M 600 246 L 600 253" marker-end="url(#arrow)"/>
+
+  <!-- ignoreEnabled? -->
+  <polygon class="cond" points="600,253 632,266 600,279 568,266"/>
+  <text class="blk-text" x="600" y="265">ignoreEnabled</text>
+  <text class="blk-text" x="600" y="270">= true?</text>
+  <text class="arrow-label" x="635" y="266">Да</text>
+  <text class="arrow-label" x="563" y="266">Нет</text>
+
+  <path class="arrow" d="M 632 266 L 685 266" marker-end="url(#arrow)"/>
+  <rect class="proc" x="685" y="261" width="55" height="11"/>
+  <text class="blk-text" x="712" y="266">Если буква русская —</text>
+  <text class="blk-text" x="712" y="270">удалить из буфера 40h:1Eh</text>
+
+  <!-- translateEnabled -->
+  <path class="arrow" d="M 600 279 L 600 285" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,285 632,298 600,311 568,298"/>
+  <text class="blk-text" x="600" y="297">translateEnabled</text>
+  <text class="blk-text" x="600" y="302">= true?</text>
+  <text class="arrow-label" x="635" y="298">Да</text>
+  <text class="arrow-label" x="563" y="298">Нет</text>
+
+  <path class="arrow" d="M 632 298 L 685 298" marker-end="url(#arrow)"/>
+  <rect class="proc" x="685" y="293" width="55" height="11"/>
+  <text class="blk-text" x="712" y="298">Заменить TGPBR</text>
+  <text class="blk-text" x="712" y="302">на ЕЖЗИК в 40h:1Eh</text>
+
+  <path class="arrow" d="M 600 311 L 600 318" marker-end="url(#arrow)"/>
+  <path class="arrow" d="M 712 304 L 712 320 L 600 320"/>
+  <path class="arrow" d="M 712 272 L 712 320 L 600 320"/>
+
+  <rect class="proc" x="570" y="320" width="60" height="9"/>
+  <text class="blk-text" x="600" y="325">Восстановить регистры</text>
+  <path class="arrow" d="M 600 329 L 600 336" marker-end="url(#arrow)"/>
+
+  <ellipse class="term" cx="600" cy="340" rx="14" ry="4"/>
+  <text class="blk-text" x="600" y="340">IRET</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- АЛГОРИТМ 3: new_int1Ch (нижний левый)                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <text class="panel-title" x="200" y="370">Алгоритм 3. Обработчик таймера new_int1Ch</text>
+  <line x1="100" y1="372" x2="300" y2="372" stroke="black" stroke-width="0.4"/>
+
+  <ellipse class="term" cx="200" cy="385" rx="18" ry="5"/>
+  <text class="blk-text" x="200" y="385">ВХОД INT 1Ch</text>
+  <path class="arrow" d="M 200 390 L 200 397" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="170" y="398" width="60" height="9"/>
+  <text class="blk-text" x="200" y="403">push AX; call old_int1Ch</text>
+  <path class="arrow" d="M 200 407 L 200 414" marker-end="url(#arrow)"/>
+
+  <polygon class="cond" points="200,414 230,427 200,440 170,427"/>
+  <text class="blk-text" x="200" y="425">signaturePrinting</text>
+  <text class="blk-text" x="200" y="430">= true?</text>
+  <text class="arrow-label" x="232" y="427">Да</text>
+  <text class="arrow-label" x="165" y="427">Нет</text>
+
+  <!-- Нет — сразу к IRET -->
+  <path class="arrow" d="M 170 427 L 130 427 L 130 510" marker-end="url(#arrow)"/>
+
+  <!-- Да -->
+  <path class="arrow" d="M 230 427 L 280 427 L 280 442" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="280,442 310,455 280,468 250,455"/>
+  <text class="blk-text" x="280" y="453">counter ==</text>
+  <text class="blk-text" x="280" y="458">5·1000/55+1?</text>
+  <text class="arrow-label" x="312" y="455">Да</text>
+  <text class="arrow-label" x="245" y="455">Нет</text>
+
+  <!-- Нет → inc counter -->
+  <path class="arrow" d="M 250 455 L 220 455 L 220 470" marker-end="url(#arrow)"/>
+  <rect class="proc" x="190" y="470" width="60" height="9"/>
+  <text class="blk-text" x="220" y="475">inc counter</text>
+  <path class="arrow" d="M 220 479 L 220 490 L 200 490" marker-end="url(#arrow)"/>
+
+  <!-- Да → printSignature -->
+  <path class="arrow" d="M 310 455 L 340 455 L 340 470" marker-end="url(#arrow)"/>
+  <rect class="proc" x="310" y="470" width="60" height="14"/>
+  <text class="blk-text" x="340" y="475">call printSignature;</text>
+  <text class="blk-text" x="340" y="479">NOT signaturePrinting;</text>
+  <text class="blk-text" x="340" y="482">counter = 0</text>
+  <path class="arrow" d="M 340 484 L 340 500 L 200 500" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="170" y="501" width="60" height="9"/>
+  <text class="blk-text" x="200" y="506">pop AX</text>
+  <path class="arrow" d="M 200 510 L 200 517" marker-end="url(#arrow)"/>
+
+  <ellipse class="term" cx="200" cy="522" rx="14" ry="4"/>
+  <text class="blk-text" x="200" y="522">IRET</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- АЛГОРИТМ 4: new_int2Fh (нижний правый)                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <text class="panel-title" x="600" y="370">Алгоритм 4. Мультиплексор new_int2Fh</text>
+  <line x1="480" y1="372" x2="720" y2="372" stroke="black" stroke-width="0.4"/>
+
+  <ellipse class="term" cx="600" cy="385" rx="18" ry="5"/>
+  <text class="blk-text" x="600" y="385">ВХОД INT 2Fh</text>
+  <path class="arrow" d="M 600 390 L 600 397" marker-end="url(#arrow)"/>
+
+  <polygon class="cond" points="600,397 630,410 600,423 570,410"/>
+  <text class="blk-text" x="600" y="408">AH = 0FFh?</text>
+  <text class="arrow-label" x="632" y="410">Да</text>
+  <text class="arrow-label" x="565" y="410">Нет</text>
+
+  <!-- Нет → jmp old -->
+  <path class="arrow" d="M 570 410 L 530 410 L 530 480" marker-end="url(#arrow)"/>
+  <rect class="proc" x="500" y="480" width="60" height="9"/>
+  <text class="blk-text" x="530" y="485">jmp old_int2Fh</text>
+
+  <!-- Да -->
+  <path class="arrow" d="M 600 423 L 600 430" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,430 630,443 600,456 570,443"/>
+  <text class="blk-text" x="600" y="441">AL = 0?</text>
+  <text class="blk-text" x="600" y="446">(проверка)</text>
+  <text class="arrow-label" x="632" y="443">Да</text>
+  <text class="arrow-label" x="565" y="443">Нет</text>
+
+  <!-- Да: AH='i', IRET -->
+  <path class="arrow" d="M 630 443 L 680 443 L 680 480" marker-end="url(#arrow)"/>
+  <rect class="proc" x="650" y="480" width="60" height="9"/>
+  <text class="blk-text" x="680" y="485">AH = 'i'; IRET</text>
+
+  <!-- Нет -->
+  <path class="arrow" d="M 600 456 L 600 462" marker-end="url(#arrow)"/>
+  <polygon class="cond" points="600,462 630,475 600,488 570,475"/>
+  <text class="blk-text" x="600" y="474">AL = 1?</text>
+  <text class="blk-text" x="600" y="478">(выгрузка)</text>
+  <text class="arrow-label" x="632" y="475">Да</text>
+  <text class="arrow-label" x="565" y="475">Нет</text>
+
+  <!-- Нет → старый -->
+  <path class="arrow" d="M 570 475 L 530 475 L 530 480"/>
+
+  <!-- Да: выгрузка -->
+  <path class="arrow" d="M 600 488 L 600 495" marker-end="url(#arrow)"/>
+  <rect class="proc" x="570" y="496" width="60" height="9"/>
+  <text class="blk-text" x="600" y="501">Восстановить 3 вектора</text>
+  <path class="arrow" d="M 600 505 L 600 510" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="570" y="511" width="60" height="9"/>
+  <text class="blk-text" x="600" y="516">Освободить PSP (AH=49h)</text>
+  <path class="arrow" d="M 600 520 L 600 525" marker-end="url(#arrow)"/>
+
+  <rect class="proc" x="570" y="526" width="60" height="9"/>
+  <text class="blk-text" x="600" y="531">Освободить тело (AH=49h)</text>
+  <path class="arrow" d="M 600 535 L 600 540" marker-end="url(#arrow)"/>
+
+  <rect class="io" x="570" y="541" width="60" height="9"/>
+  <text class="blk-text" x="600" y="546">Вывод «Резидент выгружен»</text>
+  <path class="arrow" d="M 600 550 L 600 557" marker-end="url(#arrow)"/>
+
+  <ellipse class="term" cx="600" cy="562" rx="14" ry="4"/>
+  <text class="blk-text" x="600" y="562">IRET</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Легенда условных обозначений                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <rect class="proc" x="370" y="395" width="100" height="125" fill="#fafafa"/>
+  <text x="420" y="405" font-size="4" font-weight="bold" text-anchor="middle">Условные обозначения</text>
+
+  <ellipse class="term" cx="385" cy="418" rx="10" ry="3.5"/>
+  <text x="395" y="420" font-size="2.8">— Начало / Конец процесса</text>
+
+  <rect class="proc" x="378" y="430" width="20" height="7"/>
+  <text x="402" y="435" font-size="2.8">— Процесс (действие)</text>
+
+  <polygon class="cond" points="388,448 398,455 388,462 378,455"/>
+  <text x="402" y="457" font-size="2.8">— Условие / решение</text>
+
+  <rect class="io" x="378" y="470" width="20" height="7"/>
+  <text x="402" y="475" font-size="2.8">— Ввод / вывод</text>
+
+  <text x="378" y="492" font-size="3" font-weight="bold">Скан-коды клавиш:</text>
+  <text x="378" y="498" font-size="2.8">F1=3Bh, F2=3Ch, F8=42h, F9=43h</text>
+  <text x="378" y="504" font-size="2.8">После sub AL,58:</text>
+  <text x="378" y="510" font-size="2.8">F1→1, F2→2, F8→8, F9→9</text>
+  <text x="378" y="516" font-size="2.8">cursive: 'З' (cp866 = 0x97)</text>
+
+  <!-- ─── ОСНОВНАЯ НАДПИСЬ (штамп ГОСТ 2.104) ─── -->
+  <g transform="translate(651, 534)">
+    <rect class="stamp-line-thick" x="0" y="0" width="185" height="55"/>
+
+    <line class="stamp-line" x1="7" y1="0" x2="7" y2="25"/>
+    <line class="stamp-line" x1="17" y1="0" x2="17" y2="25"/>
+    <line class="stamp-line" x1="40" y1="0" x2="40" y2="25"/>
+    <line class="stamp-line" x1="55" y1="0" x2="55" y2="25"/>
+    <line class="stamp-line" x1="65" y1="0" x2="65" y2="25"/>
+
+    <line class="stamp-line" x1="0" y1="5" x2="65" y2="5"/>
+    <text x="3.5" y="3.5" class="label" text-anchor="middle">Изм</text>
+    <text x="12" y="3.5" class="label" text-anchor="middle">Лист</text>
+    <text x="28.5" y="3.5" class="label" text-anchor="middle">№ докум.</text>
+    <text x="47.5" y="3.5" class="label" text-anchor="middle">Подп.</text>
+    <text x="60" y="3.5" class="label" text-anchor="middle">Дата</text>
+
+    <line class="stamp-line" x1="0" y1="10" x2="65" y2="10"/>
+    <line class="stamp-line" x1="0" y1="15" x2="65" y2="15"/>
+    <line class="stamp-line" x1="0" y1="20" x2="65" y2="20"/>
+    <line class="stamp-line" x1="0" y1="25" x2="185" y2="25"/>
+
+    <line class="stamp-line" x1="23" y1="25" x2="23" y2="55"/>
+    <line class="stamp-line" x1="0" y1="32" x2="65" y2="32"/>
+    <line class="stamp-line" x1="0" y1="39" x2="65" y2="39"/>
+    <line class="stamp-line" x1="0" y1="46" x2="65" y2="46"/>
+
+    <text x="2" y="29" class="label">Разраб.</text>
+    <text x="2" y="36" class="label">Пров.</text>
+    <text x="2" y="43" class="label">Т.контр.</text>
+    <text x="2" y="50" class="label">Н.контр.</text>
+    <text x="2" y="54" class="label">Утв.</text>
+
+    <text x="25" y="29" class="label">Воробьев Е. А.</text>
+    <text x="25" y="36" class="label">Большаков С. А.</text>
+
+    <line class="stamp-line" x1="40" y1="25" x2="40" y2="55"/>
+    <line class="stamp-line" x1="55" y1="25" x2="55" y2="55"/>
+    <text x="57" y="29" class="label">2026</text>
+    <text x="57" y="36" class="label">2026</text>
+
+    <line class="stamp-line" x1="120" y1="25" x2="120" y2="55"/>
+    <line class="stamp-line" x1="120" y1="40" x2="185" y2="40"/>
+    <line class="stamp-line" x1="120" y1="48" x2="185" y2="48"/>
+
+    <text x="92" y="32" class="label" text-anchor="middle" font-weight="bold">КР СП ИУ5-42Б</text>
+    <text x="92" y="40" class="label" text-anchor="middle" font-weight="bold">Резидентная программа</text>
+    <text x="92" y="48" class="label" text-anchor="middle">(вариант №5)</text>
+    <text x="92" y="54" class="label" text-anchor="middle">Воробьев Е. А.</text>
+
+    <text x="135" y="32" class="label" text-anchor="middle">Блок</text>
+    <text x="135" y="37" class="label" text-anchor="middle">КР</text>
+    <text x="152" y="32" class="label" text-anchor="middle">Лит.</text>
+    <text x="152" y="37" class="label" text-anchor="middle">У</text>
+    <text x="172" y="32" class="label" text-anchor="middle">Лист</text>
+    <text x="172" y="37" class="label" text-anchor="middle">1</text>
+
+    <text x="152" y="46" class="label" text-anchor="middle">Листов</text>
+    <text x="152" y="52" class="label" text-anchor="middle">1</text>
+
+    <text x="152" y="53" class="label" text-anchor="middle">МГТУ им. Н.Э. Баумана, ИУ-5</text>
+  </g>
+
+  <text x="25" y="589" class="label" transform="rotate(-90, 25, 589)">Курсовая работа по дисциплине «Системное программирование»</text>
+</svg>
